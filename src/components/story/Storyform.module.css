@@ -1,0 +1,104 @@
+.container {
+    background-color: rgb(254, 249, 242);
+    height: 570px;
+    width: 650px;
+    padding: 3rem;
+    border-radius: 2rem;
+    position: relative;
+}
+.mainContainer {
+    height: 92vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.sliderContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 18px;
+    /* justify-content: space-between; */
+}
+
+.sliderChip {
+    position: relative;
+    background-color: rgb(167, 90, 90);
+    border-radius: 13px;
+    margin-right: 10px;
+}
+
+.sliderChip div,
+.btnadd {
+    height: 60px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0px 4px 15px 0px #0000001A;
+}
+
+.sliderChip button {
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid red;
+    color: red;
+    font-size: 15px;
+    cursor: pointer;
+    top: -9px;
+    right: -3px;
+    width: 22px;
+}
+
+.btnadd {
+    border: none;
+    outline: none;
+    background-color: white;
+}
+
+.submitBtn {
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    padding: 0.7rem 2.3rem;
+    border-radius: 20px;
+    background: #FF7373;
+    letter-spacing: 1px;
+    cursor: pointer;
+    opacity: 0.9;
+    font-weight: 600;
+}
+
+.submitBtn:hover {
+    opacity: 1;
+}
+
+.btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.closeModal {
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid red;
+    width: 24px;
+    color: red;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    top: 33px;
+    right: 49px;
+}

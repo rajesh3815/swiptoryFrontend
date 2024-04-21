@@ -2,10 +2,10 @@ import React, { useRef, useState } from "react";
 import Styles from "./Popup.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { loginUser, registerUser } from "../../auth/auth";
-const Popup = ({ name, onclose }) => {
+const Popup = ({ name, onclose, setisLoggedin, setUserName }) => {
   const popref = useRef();
   const [showpassword, setShowpassword] = useState(false);
-  const [err, setErr] = useState('');
+  const [err, setErr] = useState("");
   const [formData, setFormdata] = useState({
     name: "",
     userPassword: "",
@@ -43,24 +43,27 @@ const Popup = ({ name, onclose }) => {
       }
     }
     if (name === "Register") {
-      let res=await registerUser(formData);
+      let res = await registerUser(formData);
     } else {
-      let res =await loginUser(formData);
-      if(res===500){
-        setErr("user does not exist")
+      let res = await loginUser(formData);
+      if (res === 500) {
+        setErr("user does not exist");
         console.log("user does ");
-      }else if(res===400){
-        setErr("wrong password")
-      }else{
-        setErr("")
+      } else if (res === 400) {
+        setErr("wrong password");
+      } else {
+        setErr("");
+        //for togle login logout functionalities
+        setUserName(res);
+        setisLoggedin(localStorage.getItem("token"));
       }
     }
   };
   return (
     <div onClick={closeModal} ref={popref} className={Styles.container}>
       <div className={Styles.popup}>
-        <button onClick={onclose}>x</button>
-        <p>{name} to SwipTory</p>
+        <button className={Styles.crossbtn} onClick={onclose}>x</button>
+        <p className={Styles.popupHeader}>{name} to SwipTory</p>
         <form onSubmit={clickHandeler}>
           <label htmlFor="username">
             UserName{" "}
@@ -74,7 +77,7 @@ const Popup = ({ name, onclose }) => {
           </label>
           <p style={{ color: "red" }}>{errordata.name}</p>
           <br />
-          <label htmlFor="password">
+          <label htmlFor="password" style={{ position: "relative" }}>
             password{" "}
             <input
               name="userPassword"
@@ -83,15 +86,18 @@ const Popup = ({ name, onclose }) => {
               value={formData.password}
               onChange={formHandeler}
             />
+            <span className={Styles.eye}>
+              {showpassword ? (
+                <FaEye onClick={() => setShowpassword(false)} />
+              ) : (
+                <FaEyeSlash onClick={() => setShowpassword(true)} />
+              )}
+            </span>
           </label>
           <p style={{ color: "red" }}>{errordata.userPassword}</p>
-          <button>{name}</button>
+          <button className={Styles.btn}>{name}</button>
         </form>
-        {showpassword ? (
-          <FaEye onClick={() => setShowpassword(false)} />
-        ) : (
-          <FaEyeSlash onClick={() => setShowpassword(true)} />
-        )}
+
         <p>{err}</p>
       </div>
     </div>

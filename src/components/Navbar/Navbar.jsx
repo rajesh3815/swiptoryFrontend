@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "./Navbar.module.css";
 import Popup from "../popupmodal/Popup";
 import { FaBookmark } from "react-icons/fa";
 import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
 import logo from "../../assets/profilelogo.jpg";
+import Storyform from "../story/Storyform";
 const Navbar = () => {
   const [loginPopup, setLoginPopup] = useState(false);
   const [registerPopup, setRegisterPopup] = useState(false);
-  const [logoutModal, setLogoutModal] = useState(false);
+  const [logoutModal, setLogoutModal] = useState();
+  const [storyModal, setStroyModal] = useState();
   //check for login
-  const [isLoggedin] = useState(localStorage.getItem("token"));
+  const [isLoggedin, setisLoggedin] = useState(localStorage.getItem("token"));
+  //----------------------//
+  const [username, setUserName] = useState("");
   const register = () => {
     if (loginPopup) {
       setLoginPopup(false);
@@ -25,9 +29,15 @@ const Navbar = () => {
     setLoginPopup(true);
   };
   //handdel when user click logout btn
-  const logoutHandeler=()=>{
+  const logoutHandeler = () => {
     localStorage.removeItem("token");
-  }
+    setisLoggedin(localStorage.getItem("token"));
+    setLogoutModal(!logoutModal);
+  };
+  //story modal
+  const addStoryhandeler = () => {
+    setStroyModal(true);
+  };
 
   return (
     <>
@@ -51,24 +61,34 @@ const Navbar = () => {
               <button style={{ background: "#FF7373" }}>
                 <FaBookmark /> Bookmarks
               </button>
-              <button style={{ background: "#FF7373" }}>Add story</button>
+              <button
+                onClick={addStoryhandeler}
+                style={{ background: "#FF7373" }}
+              >
+                Add story
+              </button>
               <span className={Styles.profileLogo}>
                 <img src={logo} alt="" />
               </span>
               <span className={Styles.logoutModals}>
                 {logoutModal ? (
-                  <RxCross1 onClick={() => setLogoutModal(false)} />
+                  <RxCross1 onClick={() => setLogoutModal(!logoutModal)} />
                 ) : (
                   <RxHamburgerMenu
-                    onClick={() => setLogoutModal(true)}
+                    onClick={() => setLogoutModal(!logoutModal)}
                     style={{ fontSize: "2rem" }}
                   />
                 )}
               </span>
               {logoutModal ? (
                 <div className={Styles.logoutDiv}>
-                  <p>Your name</p>
-                  <button onClick={logoutHandeler} style={{ background: "#FF7373" }}>Logout</button>
+                  <p>Hello {username}</p>
+                  <button
+                    onClick={logoutHandeler}
+                    style={{ background: "#FF7373" }}
+                  >
+                    Logout
+                  </button>
                 </div>
               ) : (
                 ""
@@ -77,12 +97,21 @@ const Navbar = () => {
           )}
         </div>
       </div>
+      {/* login modal */}
       {loginPopup && (
-        <Popup onclose={() => setLoginPopup(false)} name={"Login"} />
+        <Popup
+          setisLoggedin={setisLoggedin}
+          setUserName={setUserName}
+          onclose={() => setLoginPopup(false)}
+          name={"Login"}
+        />
       )}
+      {/* register modal */}
       {registerPopup && (
         <Popup onclose={() => setRegisterPopup(false)} name={"Register"} />
       )}
+      {/* add stroy modal */}
+      {storyModal && <Storyform onclose={()=>setStroyModal(false)} />}
     </>
   );
 };
