@@ -1,0 +1,114 @@
+.allStorydiv {
+    margin-top: 1rem;
+}
+
+.conatainer {
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.conatainer h3 {
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+}
+
+.emptydiv {
+    height: 25rem;
+    display: flex;
+    width: -webkit-fill-available;
+    align-items: center;
+    justify-content: center;
+    color: #8E8E8E;
+}
+
+.emptydiv p {
+    font-size: 22px;
+    letter-spacing: 2px;
+    font-weight: bolder;
+
+}
+
+.storySections {
+    display: flex;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: center;
+    width: -webkit-fill-available;
+    gap: 4rem;
+    padding: 10px 1rem;
+    flex-wrap: wrap;
+}
+
+.storyCard {
+    border: 1px solid green;
+    cursor: pointer;
+    height: 30rem;
+    width: 18rem;
+    border-radius: 14px;
+    /* overflow: hidden; */
+    position: relative;
+}
+
+.storyCard img {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    border-radius: 14px;
+    position: absolute;
+
+}
+
+.storyCard button {
+    z-index: 100;
+    position: absolute;
+    bottom: -12px;
+    background-color: white;
+    padding: .5rem 1.5rem;
+    font-weight: 600;
+    border-radius: 14rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    left: 32%;
+    /* right: 50%; */
+    box-shadow: 0px 4px 4px 0px #00000040;
+
+}
+
+.storyCard span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.cardFooter{
+    z-index: 100;
+    position: absolute;
+    bottom: 2rem;
+    width: -webkit-fill-available;
+    height: max-content;
+    padding:0 0.8rem ;
+    /* background-color: rgb(27, 27, 27); */
+    border-radius: 14px;
+    color: white;
+    word-wrap: break-word;
+    font-weight: 600;
+}
+.cardFooter h2{
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+.showbtn{
+    border: none;
+    outline: none;
+    padding: .5rem;
+    font-size: 17px;
+    cursor: pointer;
+    color: white;
+    border-radius: 20px;
+    background-color: #FF7373;
+}

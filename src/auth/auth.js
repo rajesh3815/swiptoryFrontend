@@ -24,9 +24,10 @@ export const loginUser = async ({ name, userPassword }) => {
         password: userPassword,
       }
     );
-    console.log(response.data);
-     localStorage.setItem("token", response.data.token);
-     return response.data.name
+    console.log("data from login-", response.data);
+    localStorage.setItem("userId", response.data.userId);
+    localStorage.setItem("token", response.data.token);
+    return response.data.name;
   } catch (error) {
     return error.response.status;
   }

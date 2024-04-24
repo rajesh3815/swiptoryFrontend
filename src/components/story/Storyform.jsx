@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Form from "../form/form";
 import Style from "./Storyform.module.css";
-import { categories} from "../../util/constant"
-import { createStory } from "../../api/story";
+import { categories } from "../../util/constant";
+import { createStory, updateStory } from "../../api/story";
+import { myContext } from "../../Context";
 
 const Storyform = ({ onclose }) => {
+  let { editData, setEditData, setIsEdit, isEdit, storyid, setStoryid } =
+    useContext(myContext);
   const storyref = useRef();
   const [constCategory, setConstcategory] = useState(categories);
   const initialSlide = {
@@ -13,15 +16,30 @@ const Storyform = ({ onclose }) => {
     imageUrl: "",
     category: "",
   };
+
+  const [ds, setds] = useState([
+    { heading: "d", description: "df", imageUrl: "df", category: "df" },
+    { heading: "dsfg", description: "dsf", imageUrl: "sg", category: "sdg" },
+    { heading: "sdg", description: "sdg", imageUrl: "sdg", category: "sdg" },
+  ]);
   const [slides, setSlides] = useState([
     initialSlide,
     initialSlide,
     initialSlide,
   ]);
-  const[a,seta]=useState([{},{}])
+  useEffect(() => {
+    if (editData.length > 0) {
+      setSlides(editData);
+    }else{
+      console.log('====================================');
+      console.log("dsfdsjkfdfj");
+      console.log('====================================');
+      setSlides([initialSlide,initialSlide,initialSlide])
+    }
+  }, [editData]);
   const [errors, setErrors] = useState("");
   const [currentSlide, setcurrentSlide] = useState(0);
-  
+
   const handelchange = (e, curIndex) => {
     const { name, value } = e.target;
     if (name === "category") {
@@ -67,7 +85,17 @@ const Storyform = ({ onclose }) => {
         return;
       }
     }
-    createStory(slides)
+    if (isEdit) {
+      updateStory(storyid,slides);
+      setEditData([])
+      setIsEdit(false)
+      setStoryid("")
+    } else {
+      console.log('====================================');
+      console.log("dfvmdf");
+      console.log('====================================');
+      createStory(slides);
+    }
   };
   const closeModal = (e) => {
     if (storyref.current === e.target) {
@@ -119,7 +147,9 @@ const Storyform = ({ onclose }) => {
           </React.Fragment>
         ))}
         {/* error message */}
-        <p style={{ textAlign: "center", color: "red" ,marginTop:"10px"}}>{errors}</p>
+        <p style={{ textAlign: "center", color: "red", marginTop: "10px" }}>
+          {errors}
+        </p>
         <div className={Style.btns}>
           <div>
             <button
@@ -138,7 +168,10 @@ const Storyform = ({ onclose }) => {
             </button>
           </div>
           <button className={Style.submitBtn} onClick={submitHandeler}>
-            Post
+          {
+            isEdit?"edit":"Post"
+          }
+            
           </button>
         </div>
       </div>

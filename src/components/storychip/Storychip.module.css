@@ -1,0 +1,32 @@
+.chipsContainer {
+    margin-top: 10px;
+    margin-left: 1.5rem;
+    display: flex;
+    gap: 2rem;
+}
+
+.chipall {
+    overflow: hidden;
+    width: 10rem;
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    position: relative;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.chipall img{
+    height: 10rem;
+    width: 10rem;
+}
+
+.glass {
+    position: absolute;
+    width: 10rem;
+    height: 10rem;
+    background-color: #00000099;
+}

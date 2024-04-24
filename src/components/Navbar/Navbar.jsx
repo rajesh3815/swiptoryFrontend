@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Styles from "./Navbar.module.css";
 import Popup from "../popupmodal/Popup";
 import { FaBookmark } from "react-icons/fa";
 import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
 import logo from "../../assets/profilelogo.jpg";
 import Storyform from "../story/Storyform";
+import { myContext } from "../../Context";
 const Navbar = () => {
+  let {isEdit}=useContext(myContext)
   const [loginPopup, setLoginPopup] = useState(false);
   const [registerPopup, setRegisterPopup] = useState(false);
   const [logoutModal, setLogoutModal] = useState();
@@ -111,7 +113,7 @@ const Navbar = () => {
         <Popup onclose={() => setRegisterPopup(false)} name={"Register"} />
       )}
       {/* add stroy modal */}
-      {storyModal && <Storyform onclose={()=>setStroyModal(false)} />}
+      {(storyModal||isEdit) && <Storyform onclose={()=>setStroyModal(false)} />}
     </>
   );
 };

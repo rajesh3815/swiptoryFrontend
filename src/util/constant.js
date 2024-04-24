@@ -1,9 +1,9 @@
 
 export const categories = [
-    "food",
-    "health and fitness",
-    "travel",
-    "movie",
-    "education",
+    'Food',
+    "fitness",
+    "fashion",
+    "World",
+    "medical",
   ];
   
