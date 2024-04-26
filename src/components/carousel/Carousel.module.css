@@ -1,7 +1,8 @@
 .container {
     position: relative;
     box-shadow: 0px 4px 40px 0px #D9D9D94D;
-
+    border-radius: 15px;
+    /* overflow: hidden; */
 }
 
 .maincontainer {
@@ -18,29 +19,50 @@
 
 .carouselContainer {
     display: flex;
-    height: 30rem;
-    width: 15rem;
+    height: 35rem;
+    width: 20rem;
     overflow: hidden;
     transition: all 0.4s;
+    border-radius: 15px;
 }
 
 .carousel {
-    height: 30rem;
-    width: 15rem;
+    height: 35rem;
+    width: 20rem;
     transition: all 0.4s;
-    /* transform: translateX(-100%); */
+    position: relative;
+    border-radius: 15px;
+    
+}
+.dataFooter{
+    position: absolute;
+    bottom: 4rem;
+    color: white;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+.counters{
+    position: absolute;
+    bottom: -8px;
+    right: 1.3rem;
+    font-weight: bolder;
+    color: white;
 }
 
 .carousel img {
-    height: 30rem;
-    width: 15rem
+    height: 35rem;
+    width: 20rem;
+    border-radius: 15px;
 }
 
 .btnDiv {
     display: flex;
     gap: 28rem;
-    left: -12.3rem;
-    font-size: 6rem;
+    left: -9.1rem;
+    font-size: 5rem;
     color: rgb(255, 255, 255);
     position: absolute;
     top: 46%;
@@ -56,16 +78,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     position: absolute;
+    gap: 5px;
+    margin-top: 2px;
+    margin-left: 10px;
 }
 
 .heartFooter {
     position: absolute;
-    bottom: 0rem;
-    width: 14rem;
+    bottom: .3rem;
+    width: 90%;
     right: 1rem;
     display: flex;
-    gap: 9rem;
+    justify-content: space-between;
 
 }
 .close{

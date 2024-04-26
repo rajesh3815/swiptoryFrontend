@@ -3,7 +3,7 @@
 }
 
 .conatainer {
-    border: 1px solid;
+    /* border: 1px solid; */
     display: flex;
     align-items: center;
     gap: 8px;
@@ -34,17 +34,17 @@
 
 .storySections {
     display: flex;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     align-items: center;
     justify-content: center;
     width: -webkit-fill-available;
     gap: 4rem;
-    padding: 10px 1rem;
+    padding: 1rem 1rem 2rem 1rem ;
     flex-wrap: wrap;
 }
 
 .storyCard {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     cursor: pointer;
     height: 30rem;
     width: 18rem;

@@ -6,12 +6,14 @@ import { RxHamburgerMenu, RxCross1 } from "react-icons/rx";
 import logo from "../../assets/profilelogo.jpg";
 import Storyform from "../story/Storyform";
 import { myContext } from "../../Context";
+import Bookmark from "../bookmark/Bookmark";
 const Navbar = () => {
   let {isEdit}=useContext(myContext)
   const [loginPopup, setLoginPopup] = useState(false);
   const [registerPopup, setRegisterPopup] = useState(false);
   const [logoutModal, setLogoutModal] = useState();
   const [storyModal, setStroyModal] = useState();
+  const [bookmarkModal, setBookmarkModal] = useState();
   //check for login
   const [isLoggedin, setisLoggedin] = useState(localStorage.getItem("token"));
   //----------------------//
@@ -33,6 +35,7 @@ const Navbar = () => {
   //handdel when user click logout btn
   const logoutHandeler = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     setisLoggedin(localStorage.getItem("token"));
     setLogoutModal(!logoutModal);
   };
@@ -40,6 +43,10 @@ const Navbar = () => {
   const addStoryhandeler = () => {
     setStroyModal(true);
   };
+
+  const bookmarkHandeler=()=>{
+    setBookmarkModal(true)
+  }
 
   return (
     <>
@@ -60,7 +67,7 @@ const Navbar = () => {
             </div>
           ) : (
             <div className={Styles.loginDiv}>
-              <button style={{ background: "#FF7373" }}>
+              <button onClick={bookmarkHandeler}  style={{ background: "#FF7373" }}>
                 <FaBookmark /> Bookmarks
               </button>
               <button
@@ -99,6 +106,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
+
       {/* login modal */}
       {loginPopup && (
         <Popup
@@ -108,12 +116,20 @@ const Navbar = () => {
           name={"Login"}
         />
       )}
+
       {/* register modal */}
       {registerPopup && (
         <Popup onclose={() => setRegisterPopup(false)} name={"Register"} />
       )}
+
       {/* add stroy modal */}
       {(storyModal||isEdit) && <Storyform onclose={()=>setStroyModal(false)} />}
+
+      {/* add bookmarkmodal modal */}
+      {
+       bookmarkModal && <Bookmark onclose={()=>setBookmarkModal(false)} />
+      }
+
     </>
   );
 };

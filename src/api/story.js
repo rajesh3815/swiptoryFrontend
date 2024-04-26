@@ -33,7 +33,6 @@ export const getStoryById = async (id) => {
     const res = await axios.get(
       `http://localhost:3000/api/v1/story/getStoryById/${id}`
     );
-    console.log("Like count-",res.likes);
     return res.data;
   } catch (error) {
     console.log("error occured in story getStoryById):", error);
@@ -47,17 +46,44 @@ export const likedStory = async (userId, storyId) => {
     const res = await axios.put(
       `http://localhost:3000/api/v1/story/likedStory/${storyId}/${userId}`
     );
-    return res.data
+    return res.data;
     console.log(res);
   } catch (error) {
     console.log("error occured in story like):", error);
   }
 };
 
+export const bookmarkStory = async (story) => {
+  try {
+    const token = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = token;
+    const res = await axios.put(
+      `http://localhost:3000/api/v1/story/bookmarkStory`,
+      story
+    );
+    console.log(res);
+  } catch (error) {
+    console.log("error occured in Bookmark story):", error);
+  }
+};
+
+export const getbookmarks = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = token;
+    const res = await axios.get(
+      `http://localhost:3000/api/v1/story/getBookmarks`
+    );
+    // console.log("from getbookmark",res.data);
+    return res.data.bookmarks;
+  } catch (error) {
+    console.log("error occured in get Bookmark story):", error);
+  }
+};
+
 export const getAllstory = async (filterArray, cat, page) => {
   try {
     let response = "";
-    console.log(filterArray);
     if (filterArray.length === 0) {
       response = await axios.get(
         `http://localhost:3000/api/v1/story/getAllstory?cat=${cat}&page=${page}`
@@ -67,8 +93,8 @@ export const getAllstory = async (filterArray, cat, page) => {
         `http://localhost:3000/api/v1/story/getAllstory?categories=${filterArray}`
       );
     }
-    console.log(response.data.storyData);
-    return response.data.storyData;
+    console.log(response.data.storyLength);
+    return response.data;
   } catch (error) {
     console.log("error occured in story get):", error);
   }

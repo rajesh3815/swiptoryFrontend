@@ -3,11 +3,18 @@ import Style from "./Carousel.module.css";
 import { IoMdHeart } from "react-icons/io";
 import { FaBookmark } from "react-icons/fa";
 import { MdOutlineArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
-import { getStoryById, likedStory } from "../../api/story";
+import { bookmarkStory, getStoryById, likedStory } from "../../api/story";
+import { useContext } from "react";
+import { myContext } from "../../Context";
+
 const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
+  //calling bookmark data for checking if user has already bookmarked th data or not
+  let { bookmarkData, setupBookmark } = useContext(myContext);
+  /////---------------..
   const [ids] = useState(localStorage.getItem("userId"));
   const [carouseData, setCarouselData] = useState({});
   const [isliked, setIsliked] = useState(false);
+  const [isBookmark, setIsBookmark] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [likesCount, setLikesCount] = useState(0);
   useEffect(() => {
@@ -19,15 +26,33 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
 
   useEffect(() => {
     setDatas();
-    console.log(carouseData);
-  }, [currentIndex, isliked]);
+  }, [isliked]);
+
   //if the user already liked it should show likes implement here
   useEffect(() => {
     const flg = carouseData?.story?.likes?.includes(ids);
-    console.log(carouseData);
-    console.log(flg);
     flg && setIsliked(true);
   }, [carouseData]);
+
+  useEffect(() => {
+    setupBookmark();
+  }, [isBookmark, carouseData]);
+  //check story is bookmarked or not
+  useEffect(() => {
+    checkBookmark();
+  }, [carouseData]);
+
+  const checkBookmark = () => {
+    console.log(carouseData);
+    console.log(carouseData?.story?._id);
+    for (let i = 0; i < bookmarkData?.length; i++) {
+      console.log(carouseData);
+      if (bookmarkData[i]?._id === carouseData?.story?._id) {
+        // console.log(bookmarkData[i]._id,);
+        setIsBookmark(true);
+      }
+    }
+  };
 
   const prev = () => {
     setCurrentIndex((prev) =>
@@ -42,14 +67,33 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
   };
 
   const setDatas = async () => {
+    console.log(storyIds);
     const res = await getStoryById(storyIds);
+    console.log(res);
     setCarouselData(res);
+    console.log(carouseData);
     setLikesCount(res.likes);
   };
+
   const likeHandeler = async (userId, storyId) => {
+    if(!ids){
+      console.log("plz login");
+      return
+    }
     await likedStory(userId, storyId);
     setIsliked(!isliked);
   };
+
+  const bookmarkHandeler = async (story) => {
+    if(!ids){
+      console.log("plz login");
+      return
+    }
+    await bookmarkStory(story);
+    setIsBookmark(!isBookmark);
+    console.log("from bookkk", bookmarkData);
+  };
+
   return (
     <div className={Style.maincontainer}>
       <div className={Style.container}>
@@ -62,6 +106,10 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
                 className={Style.carousel}
               >
                 <img src={slide.imageUrl} alt="" />
+                <div className={Style.dataFooter}>
+                  <h3>{slide.heading}</h3>
+                  <p>{slide.description}</p>
+                </div>
               </div>
             );
           })}
@@ -78,13 +126,15 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
             ))}
           </div>
           <div className={Style.heartFooter}>
-            <div>
+            {/* bookmarks */}
+            <div onClick={() => bookmarkHandeler(carouseData.story)}>
               <FaBookmark
-                color="white"
+                color={isBookmark ? "blue" : "white"}
                 size="2.2rem"
                 style={{ cursor: "pointer" }}
               />
             </div>
+            {/* likes */}
             <div
               onClick={() =>
                 likeHandeler(carouseData.story.userId, carouseData.story._id)
@@ -95,7 +145,7 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
                 size="3rem"
                 style={{ cursor: "pointer" }}
               />
-              <span>{likesCount}</span>
+              <span className={Style.counters}>{likesCount}</span>
             </div>
           </div>
           <span onClick={() => setOpencarousel(false)} className={Style.close}>

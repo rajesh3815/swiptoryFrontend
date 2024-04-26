@@ -7,6 +7,8 @@
     position: relative;
 }
 .mainContainer {
+    position: absolute;
+    z-index: 200;
     height: 92vh;
     width: 100%;
     display: flex;

@@ -88,7 +88,6 @@ const Storyform = ({ onclose }) => {
     if (isEdit) {
       updateStory(storyid,slides);
       setEditData([])
-      setIsEdit(false)
       setStoryid("")
     } else {
       console.log('====================================');
@@ -97,15 +96,17 @@ const Storyform = ({ onclose }) => {
       createStory(slides);
     }
   };
-  const closeModal = (e) => {
-    if (storyref.current === e.target) {
-      onclose();
-    }
+  const closeModal = () => {
+    // if (storyref.current === e.target) {
+    //   onclose();
+    // }
+    onclose();
+    setIsEdit(false)
   };
   return (
-    <div onClick={closeModal} ref={storyref} className={Style.mainContainer}>
+    <div  ref={storyref} className={Style.mainContainer}>
       <div className={Style.container}>
-        <button onClick={() => onclose()} className={Style.closeModal}>
+        <button onClick={() => closeModal()} className={Style.closeModal}>
           X
         </button>
         {/* design slider buttons */}

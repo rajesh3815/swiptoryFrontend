@@ -20,6 +20,7 @@
     position: relative;
     border-radius: 30px;
     gap: 2rem;
+    z-index: 500;
 }
 
 .popupHeader {
