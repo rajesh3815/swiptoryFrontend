@@ -9,9 +9,10 @@ export const registerUser = async ({ name, userPassword }) => {
         password: userPassword,
       }
     );
-    console.log(response.data);
+    console.log(response);
+    return response.data.status
   } catch (error) {
-    return error;
+    console.log(error);
   }
 };
 

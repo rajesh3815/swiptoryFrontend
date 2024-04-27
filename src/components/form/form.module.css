@@ -11,33 +11,81 @@
     align-items: baseline;
     gap: 2rem;
 }
-.inputChip
-{
+
+.inputChip {
     display: flex;
     align-items: center;
     gap: 6rem;
 }
-.innerFormcontainer>:nth-child(1) input[type="text"]{
+
+.innerFormcontainer>:nth-child(1) input[type="text"] {
     height: 31px;
     width: 20rem;
     font-size: 17px;
 }
-.innerFormcontainer>:nth-child(2) input[type="text"]{
+
+.innerFormcontainer>:nth-child(2) input[type="text"] {
     height: 7rem;
     width: 20rem;
     font-size: 17px;
     margin-left: -22px;
 }
-.innerFormcontainer>:nth-child(3) input[type="text"]{
+
+.innerFormcontainer>:nth-child(3) input[type="text"] {
     height: 31px;
     width: 20rem;
     font-size: 17px;
     margin-left: -5px;
 }
-.innerFormcontainer>:nth-child(4) select{
+
+.innerFormcontainer>:nth-child(4) select {
     height: 31px;
     width: 20rem;
     font-size: 17px;
     margin-left: -8px;
     cursor: pointer;
+}
+
+@media only screen and (max-width: 767px) {
+    .inputChip {
+        flex-direction: column;
+        align-items: baseline;
+        gap: 7px
+    }
+    .innerFormcontainer{
+        gap: 1.3rem;
+        margin-top: 3rem;
+    }
+
+    .innerFormcontainer>:nth-child(1) input[type="text"] {
+        height: 31px;
+        width: 13rem;
+        font-size: 15px;
+    }
+    
+    .innerFormcontainer>:nth-child(2) input[type="text"] {
+        height: 31px;
+        width: 13rem;
+        font-size: 15px;
+        /* margin-left: -22px; */
+    }
+    
+    .innerFormcontainer>:nth-child(3) input[type="text"] {
+        height: 31px;
+        width: 13rem;
+        font-size: 15px;
+        /* margin-left: -5px; */
+    }
+    
+    .innerFormcontainer>:nth-child(4) select {
+        height: 31px;
+        width: 13rem;
+        font-size: 15px;
+        /* margin-left: -8px; */
+        cursor: pointer;
+    }
+
+
+
+
 }

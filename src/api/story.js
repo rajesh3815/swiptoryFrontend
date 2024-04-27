@@ -61,7 +61,6 @@ export const bookmarkStory = async (story) => {
       `http://localhost:3000/api/v1/story/bookmarkStory`,
       story
     );
-    console.log(res);
   } catch (error) {
     console.log("error occured in Bookmark story):", error);
   }
@@ -93,7 +92,6 @@ export const getAllstory = async (filterArray, cat, page) => {
         `http://localhost:3000/api/v1/story/getAllstory?categories=${filterArray}`
       );
     }
-    console.log(response.data.storyLength);
     return response.data;
   } catch (error) {
     console.log("error occured in story get):", error);

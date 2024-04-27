@@ -1,15 +1,17 @@
 .container {
-    background-color: rgb(254, 249, 242);
+    background-color: rgb(255, 255, 255);
     height: 570px;
     width: 650px;
     padding: 3rem;
     border-radius: 2rem;
     position: relative;
 }
+
 .mainContainer {
-    position: absolute;
-    z-index: 200;
-    height: 92vh;
+    position: fixed;
+    top: 0;
+    z-index: 2000;
+    height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -26,7 +28,7 @@
 
 .sliderChip {
     position: relative;
-    background-color: rgb(167, 90, 90);
+    background-color: rgb(255, 255, 255);
     border-radius: 13px;
     margin-right: 10px;
 }
@@ -103,4 +105,94 @@
     cursor: pointer;
     top: 33px;
     right: 49px;
+}
+
+.mediaP {
+    display: none;
+}
+
+.errMessage {
+    text-align: center;
+    color: red;
+    margin-top: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+    .container {
+        display: flex;
+        gap: 12px;
+        align-items: baseline;
+        justify-content: flex-start;
+        height: 508px;
+        width: 86%;
+        padding: 10px;
+    }
+
+    .closeModal {
+        width: 18px;
+        font-size: 12px;
+        top: 22px;
+        right: 28px;
+    }
+
+    .sliderContainer {
+        align-items: baseline;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        margin-top: 0px;
+    }
+
+    .sliderChip {
+        margin-right: 0;
+    }
+
+    .sliderChip div,
+    .btnadd {
+        height: 50px;
+        width: 50px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+    }
+
+    .sliderChip button {
+        font-size: 10px;
+        width: 14px;
+    }
+
+    .btns {
+        position: absolute;
+        flex-direction: column-reverse;
+        gap: 3.5rem;
+        bottom: 0.5rem;
+        margin-top: 0;
+        width: 95%;
+    }
+
+    .btns div {
+        display: flex;
+        justify-content: space-between;
+        width: 97%;
+    }
+
+    .submitBtn {
+        padding: 0.4rem 1.2rem;
+    }
+
+    .mediaP {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        left: 3.3rem;
+        font-weight: bolder;
+        font-size: 1.3rem;
+    }
+
+    .errMessage {
+        position: absolute;
+        bottom: 4rem;
+        left: 4rem;
+    }
 }

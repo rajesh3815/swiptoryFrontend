@@ -13,6 +13,7 @@ export const ContexProvider = ({ children }) => {
   let [bookmarkData, setBookmarkData] = useState([]);
 
   const setupBookmark = async () => {
+    if(!localStorage.getItem('token')) return
     const res = await getbookmarks();
     setBookmarkData(res);
   };

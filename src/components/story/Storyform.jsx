@@ -30,11 +30,11 @@ const Storyform = ({ onclose }) => {
   useEffect(() => {
     if (editData.length > 0) {
       setSlides(editData);
-    }else{
-      console.log('====================================');
+    } else {
+      console.log("====================================");
       console.log("dsfdsjkfdfj");
-      console.log('====================================');
-      setSlides([initialSlide,initialSlide,initialSlide])
+      console.log("====================================");
+      setSlides([initialSlide, initialSlide, initialSlide]);
     }
   }, [editData]);
   const [errors, setErrors] = useState("");
@@ -86,13 +86,13 @@ const Storyform = ({ onclose }) => {
       }
     }
     if (isEdit) {
-      updateStory(storyid,slides);
-      setEditData([])
-      setStoryid("")
+      updateStory(storyid, slides);
+      setEditData([]);
+      setStoryid("");
     } else {
-      console.log('====================================');
+      console.log("====================================");
       console.log("dfvmdf");
-      console.log('====================================');
+      console.log("====================================");
       createStory(slides);
     }
   };
@@ -101,14 +101,15 @@ const Storyform = ({ onclose }) => {
     //   onclose();
     // }
     onclose();
-    setIsEdit(false)
+    setIsEdit(false);
   };
   return (
-    <div  ref={storyref} className={Style.mainContainer}>
+    <div ref={storyref} className={Style.mainContainer}>
       <div className={Style.container}>
         <button onClick={() => closeModal()} className={Style.closeModal}>
           X
         </button>
+        <p className={Style.mediaP}>Add story to feed</p>
         {/* design slider buttons */}
         <div className={Style.sliderContainer} style={{ display: "flex" }}>
           {slides.map((s, i) => (
@@ -121,7 +122,8 @@ const Storyform = ({ onclose }) => {
                   }}
                   onClick={() => setcurrentSlide(i)}
                 >
-                  slide {i}
+                  <p>slide</p>
+                  <p> {i}</p>
                 </div>
                 {slides.length > 3 && (
                   <button onClick={() => deleteslideHandeler(i)}>x</button>
@@ -148,7 +150,7 @@ const Storyform = ({ onclose }) => {
           </React.Fragment>
         ))}
         {/* error message */}
-        <p style={{ textAlign: "center", color: "red", marginTop: "10px" }}>
+        <p className={Style.errMessage} >
           {errors}
         </p>
         <div className={Style.btns}>
@@ -169,10 +171,7 @@ const Storyform = ({ onclose }) => {
             </button>
           </div>
           <button className={Style.submitBtn} onClick={submitHandeler}>
-          {
-            isEdit?"edit":"Post"
-          }
-            
+            {isEdit ? "edit" : "Post"}
           </button>
         </div>
       </div>

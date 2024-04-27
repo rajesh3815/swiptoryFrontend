@@ -23,13 +23,11 @@ const Stories = ({ filterArray }) => {
     useContext(myContext);
   useEffect(() => {
     storyFetch();
-    console.log(stories);
-  }, [isEdit,setIsEdit]);
+  }, [isEdit, setIsEdit]);
   const storyFetch = async () => {
     const res = await getAllstory([], "all", 1);
     setStories(res.storyData);
     setStoryLen(res.storyLength);
-    console.log(stories);
   };
 
   const clickHandeler = (datas, ids, e) => {
@@ -37,14 +35,16 @@ const Stories = ({ filterArray }) => {
     setStoryid(ids);
     setEditData(datas);
     setIsEdit(true);
-    console.log("====================================");
-    // console.log(editData);
-    console.log("====================================");
   };
 
   const storyCarousel = async (item) => {
     setStorysid(item);
     setOpencarousel(true);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Optional: smooth scrolling animation
+    });
   };
   const shomoreHandeler = async (category) => {
     let res = await getAllstory([], category, lengths[category]);

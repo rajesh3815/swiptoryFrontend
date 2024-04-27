@@ -112,3 +112,16 @@
     border-radius: 20px;
     background-color: #FF7373;
 }
+@media only screen and (max-width: 767px){
+
+    .conatainer h3{
+        font-size: 1.3rem;
+    }
+    .storySections{
+        gap: 2rem;
+        padding-bottom: 1rem;
+    }
+    .storyCard{
+        height: 26rem;
+    }
+}

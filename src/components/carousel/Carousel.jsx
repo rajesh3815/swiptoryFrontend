@@ -6,6 +6,8 @@ import { MdOutlineArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import { bookmarkStory, getStoryById, likedStory } from "../../api/story";
 import { useContext } from "react";
 import { myContext } from "../../Context";
+import { ToastContainer, toast, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
   //calling bookmark data for checking if user has already bookmarked th data or not
@@ -43,10 +45,7 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
   }, [carouseData]);
 
   const checkBookmark = () => {
-    console.log(carouseData);
-    console.log(carouseData?.story?._id);
     for (let i = 0; i < bookmarkData?.length; i++) {
-      console.log(carouseData);
       if (bookmarkData[i]?._id === carouseData?.story?._id) {
         // console.log(bookmarkData[i]._id,);
         setIsBookmark(true);
@@ -58,7 +57,6 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
     setCurrentIndex((prev) =>
       prev === 0 ? carouseData.story?.slides?.length - 1 : prev - 1
     );
-    console.log(currentIndex);
   };
   const next = () => {
     setCurrentIndex((prev) =>
@@ -67,31 +65,49 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
   };
 
   const setDatas = async () => {
-    console.log(storyIds);
-    const res = await getStoryById(storyIds);
-    console.log(res);
+    let res;
+    if (storyIds) res = await getStoryById(storyIds);
+    else return;
     setCarouselData(res);
-    console.log(carouseData);
     setLikesCount(res.likes);
   };
 
   const likeHandeler = async (userId, storyId) => {
-    if(!ids){
-      console.log("plz login");
-      return
+    if (!ids) {
+      toast.warn("Plz Login to Like", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Slide,
+      });
+      return;
     }
     await likedStory(userId, storyId);
     setIsliked(!isliked);
   };
 
   const bookmarkHandeler = async (story) => {
-    if(!ids){
-      console.log("plz login");
-      return
+    if (!ids) {
+      toast.warn("Plz Login to Bookmar", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Slide,
+      });
+      return;
     }
     await bookmarkStory(story);
     setIsBookmark(!isBookmark);
-    console.log("from bookkk", bookmarkData);
   };
 
   return (
@@ -161,6 +177,7 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
           <MdArrowForwardIos onClick={next} style={{ cursor: "pointer" }} />
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

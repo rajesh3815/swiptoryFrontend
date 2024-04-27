@@ -40,6 +40,7 @@
     width: 40px;
 }
 
+
 .registerDiv {
     display: flex;
     justify-content: space-between;
@@ -70,4 +71,73 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.loginHamberger {
+    display: none;
+}
+
+.media {
+    display: none;
+}
+
+.mediareg {
+    display: none;
+}
+
+@media only screen and (max-width: 767px) {
+    .mediatogle {
+        display: flex;
+        position: absolute;
+        right: 0;
+        align-items: center;
+        flex-direction: column;
+        gap: 8px;
+        padding: 1rem;
+        z-index: 1000;
+        width: 100%;
+        background: white;
+    }
+
+    .registerDiv {
+        display: none;
+    }
+
+    .mediareg {
+        display: block;
+    }
+
+    .loginDiv {
+        display: none;
+    }
+
+    .media {
+        display: block;
+    }
+
+    .mediaModals {
+        position: absolute;
+        right: 0;
+        background: rgb(255, 255, 255);
+        z-index: 1000;
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .profileLogo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgb(6, 6, 6);
+        font-size: 1.2rem;
+        gap: 5px;
+    }
+
+    .navbarContainer button {
+        width: 9rem;
+    }
 }

@@ -8,10 +8,11 @@ import Storyform from "../story/Storyform";
 import { myContext } from "../../Context";
 import Bookmark from "../bookmark/Bookmark";
 const Navbar = () => {
-  let {isEdit}=useContext(myContext)
+  let { isEdit } = useContext(myContext);
   const [loginPopup, setLoginPopup] = useState(false);
   const [registerPopup, setRegisterPopup] = useState(false);
   const [logoutModal, setLogoutModal] = useState();
+  const [mediaModal, setMediaModal] = useState();
   const [storyModal, setStroyModal] = useState();
   const [bookmarkModal, setBookmarkModal] = useState();
   //check for login
@@ -38,71 +39,154 @@ const Navbar = () => {
     localStorage.removeItem("userId");
     setisLoggedin(localStorage.getItem("token"));
     setLogoutModal(!logoutModal);
+    setMediaModal(false);
   };
   //story modal
   const addStoryhandeler = () => {
     setStroyModal(true);
   };
 
-  const bookmarkHandeler=()=>{
-    setBookmarkModal(true)
-  }
+  const bookmarkHandeler = () => {
+    setBookmarkModal(true);
+  };
 
   return (
     <>
       <div className={Styles.navbarContainer}>
         <p>SwipTory</p>
+
         <div className={Styles.navbarRightContainer}>
           {!isLoggedin ? (
-            <div className={Styles.registerDiv}>
-              <button onClick={register} style={{ background: "#FF7373" }}>
-                Register Now
-              </button>
-              <button
-                onClick={login}
-                style={{ background: "#73ABFF", padding: "0.5rem 2rem" }}
-              >
-                Sign In
-              </button>
-            </div>
+            <>
+              <div className={Styles.mediareg}>
+                <span className={Styles.logoutModals}>
+                  {mediaModal ? (
+                    <RxCross1 onClick={() => setMediaModal(!mediaModal)} />
+                  ) : (
+                    <RxHamburgerMenu
+                      onClick={() => setMediaModal(!mediaModal)}
+                      style={{ fontSize: "2rem" }}
+                    />
+                  )}
+                  {mediaModal ? (
+                    <div className={Styles.mediatogle}>
+                      <button
+                        onClick={register}
+                        style={{ background: "#FF7373" }}
+                      >
+                        Register Now
+                      </button>
+                      <button
+                        onClick={login}
+                        style={{
+                          background: "#73ABFF",
+                          padding: "0.5rem 2rem",
+                        }}
+                      >
+                        Sign In
+                      </button>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </span>
+              </div>
+              <div className={Styles.registerDiv}>
+                <button onClick={register} style={{ background: "#FF7373" }}>
+                  Register Now
+                </button>
+                <button
+                  onClick={login}
+                  style={{ background: "#73ABFF", padding: "0.5rem 2rem" }}
+                >
+                  Sign In
+                </button>
+              </div>
+            </>
           ) : (
-            <div className={Styles.loginDiv}>
-              <button onClick={bookmarkHandeler}  style={{ background: "#FF7373" }}>
-                <FaBookmark /> Bookmarks
-              </button>
-              <button
-                onClick={addStoryhandeler}
-                style={{ background: "#FF7373" }}
-              >
-                Add story
-              </button>
-              <span className={Styles.profileLogo}>
-                <img src={logo} alt="" />
-              </span>
-              <span className={Styles.logoutModals}>
-                {logoutModal ? (
-                  <RxCross1 onClick={() => setLogoutModal(!logoutModal)} />
+            <>
+              {/* this is the div i am inserting whe my medi query fires */}
+              <div className={Styles.media}>
+                <span className={Styles.logoutModals}>
+                  {mediaModal ? (
+                    <RxCross1 onClick={() => setMediaModal(!mediaModal)} />
+                  ) : (
+                    <RxHamburgerMenu
+                      onClick={() => setMediaModal(!mediaModal)}
+                      style={{ fontSize: "2rem" }}
+                    />
+                  )}
+                </span>
+                {mediaModal ? (
+                  <div className={Styles.mediaModals}>
+                    <button
+                      onClick={logoutHandeler}
+                      style={{ background: "#FF7373" }}
+                    >
+                      Logout
+                    </button>
+                    <button
+                      onClick={bookmarkHandeler}
+                      style={{ background: "#FF7373" }}
+                    >
+                      <FaBookmark /> Bookmarks
+                    </button>
+                    <button
+                      onClick={addStoryhandeler}
+                      style={{ background: "#FF7373" }}
+                    >
+                      Add story
+                    </button>
+                    <span className={Styles.profileLogo}>
+                      <img src={logo} alt="" /> <p>Hello {username}</p>
+                    </span>
+                  </div>
                 ) : (
-                  <RxHamburgerMenu
-                    onClick={() => setLogoutModal(!logoutModal)}
-                    style={{ fontSize: "2rem" }}
-                  />
+                  ""
                 )}
-              </span>
-              {logoutModal ? (
-                <div className={Styles.logoutDiv}>
-                  <p>Hello {username}</p>
-                  <button
-                    onClick={logoutHandeler}
-                    style={{ background: "#FF7373" }}
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
+              </div>
+              {/* /// */}
+              <div className={Styles.loginDiv}>
+                <button
+                  onClick={bookmarkHandeler}
+                  style={{ background: "#FF7373" }}
+                >
+                  <FaBookmark /> Bookmarks
+                </button>
+                <button
+                  onClick={addStoryhandeler}
+                  style={{ background: "#FF7373" }}
+                >
+                  Add story
+                </button>
+                <span className={Styles.profileLogo}>
+                  <img src={logo} alt="" />
+                </span>
+                <span className={Styles.logoutModals}>
+                  {logoutModal ? (
+                    <RxCross1 onClick={() => setLogoutModal(!logoutModal)} />
+                  ) : (
+                    <RxHamburgerMenu
+                      onClick={() => setLogoutModal(!logoutModal)}
+                      style={{ fontSize: "2rem" }}
+                    />
+                  )}
+                </span>
+                {logoutModal ? (
+                  <div className={Styles.logoutDiv}>
+                    <p>Hello {username}</p>
+                    <button
+                      onClick={logoutHandeler}
+                      style={{ background: "#FF7373" }}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </>
           )}
         </div>
       </div>
@@ -123,13 +207,12 @@ const Navbar = () => {
       )}
 
       {/* add stroy modal */}
-      {(storyModal||isEdit) && <Storyform onclose={()=>setStroyModal(false)} />}
+      {(storyModal || isEdit) && (
+        <Storyform onclose={() => setStroyModal(false)} />
+      )}
 
       {/* add bookmarkmodal modal */}
-      {
-       bookmarkModal && <Bookmark onclose={()=>setBookmarkModal(false)} />
-      }
-
+      {bookmarkModal && <Bookmark onclose={() => setBookmarkModal(false)} />}
     </>
   );
 };

@@ -3,6 +3,7 @@
     margin-left: 1.5rem;
     display: flex;
     gap: 2rem;
+    overflow: auto;
 }
 
 .chipall {
@@ -29,4 +30,28 @@
     width: 10rem;
     height: 10rem;
     background-color: #00000099;
+}
+.chipsinner{
+    display: flex;
+    gap: 2rem;
+}
+@media only screen and (max-width: 767px){
+    .chipall{
+        width:7rem ;
+        height: 7rem;
+    }
+    .chipsinner{
+        gap: 1rem;
+    }
+    .chipall img{
+        width:7rem ;
+        height: 7rem;
+    }
+    .glass{
+        width:7rem ;
+        height: 7rem;
+    }
+    .chipsContainer{
+        margin-left: 5px;
+    }
 }
