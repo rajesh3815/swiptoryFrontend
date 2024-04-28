@@ -5,7 +5,7 @@ export const createStory = async (slides) => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const response = await axios.post(
-      "http://localhost:3000/api/v1/story/create",
+      "https://swiptoryserver-erk2.onrender.com/api/v1/story/create",
       slides
     );
     // console.log(response);
@@ -19,7 +19,7 @@ export const updateStory = async (storyId, slides) => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const res = await axios.put(
-      `http://localhost:3000/api/v1/story/update/${storyId}`,
+      `https://swiptoryserver-erk2.onrender.com/api/v1/story/update/${storyId}`,
       slides
     );
     return res.data;
@@ -31,7 +31,7 @@ export const updateStory = async (storyId, slides) => {
 export const getStoryById = async (id) => {
   try {
     const res = await axios.get(
-      `http://localhost:3000/api/v1/story/getStoryById/${id}`
+      `https://swiptoryserver-erk2.onrender.com/api/v1/story/getStoryById/${id}`
     );
     return res.data;
   } catch (error) {
@@ -44,7 +44,7 @@ export const likedStory = async (userId, storyId) => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const res = await axios.put(
-      `http://localhost:3000/api/v1/story/likedStory/${storyId}/${userId}`
+      `https://swiptoryserver-erk2.onrender.com/api/v1/story/likedStory/${storyId}/${userId}`
     );
     return res.data;
     console.log(res);
@@ -58,7 +58,7 @@ export const bookmarkStory = async (story) => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const res = await axios.put(
-      `http://localhost:3000/api/v1/story/bookmarkStory`,
+      `https://swiptoryserver-erk2.onrender.com/api/v1/story/bookmarkStory`,
       story
     );
   } catch (error) {
@@ -71,7 +71,7 @@ export const getbookmarks = async () => {
     const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = token;
     const res = await axios.get(
-      `http://localhost:3000/api/v1/story/getBookmarks`
+      `https://swiptoryserver-erk2.onrender.com/api/v1/story/getBookmarks`
     );
     // console.log("from getbookmark",res.data);
     return res.data.bookmarks;
@@ -87,11 +87,11 @@ export const getAllstory = async (filterArray, cat, page) => {
     let response = "";
     if (filterArray.length === 0) {
       response = await axios.get(
-        `http://localhost:3000/api/v1/story/getAllstory?cat=${cat}&page=${page}`
+        `https://swiptoryserver-erk2.onrender.com/api/v1/story/getAllstory?cat=${cat}&page=${page}`
       );
     } else {
       response = await axios.get(
-        `http://localhost:3000/api/v1/story/getAllstory?categories=${filterArray}`
+        `https://swiptoryserver-erk2.onrender.com/api/v1/story/getAllstory?categories=${filterArray}`
       );
     }
     return response.data;

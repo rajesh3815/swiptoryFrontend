@@ -13,6 +13,7 @@ const Stories = ({ filterArray }) => {
   const [myStorylength, setMyStorylength] = useState(4);
   //setup total length of the each story
   const [storyLen, setStoryLen] = useState({});
+
   const [lengths, setLengths] = useState({
     Food: 2,
     fitness: 2,
@@ -20,6 +21,10 @@ const Stories = ({ filterArray }) => {
     World: 2,
     medical: 2,
   }); //initial lengths
+  useEffect(() => {
+    console.log("ff");
+    setLengths({ Food: 2, fitness: 2, fashion: 2, World: 2, medical: 2 });
+  }, [filterArray]);
   let {
     editData,
     setEditData,
@@ -28,14 +33,13 @@ const Stories = ({ filterArray }) => {
     setStoryid,
     loginStatus,
     storyCreated,
-    
   } = useContext(myContext);
   useEffect(() => {
     storyFetch();
     console.log(stories);
     console.log(loginStatus);
     setIds(localStorage.getItem("userId"));
-  }, [isEdit, setIsEdit, loginStatus, ids,storyCreated]);
+  }, [isEdit, setIsEdit, loginStatus, ids, storyCreated, filterArray]);
   const storyFetch = async () => {
     const res = await getAllstory([], "all", 1);
     setStories(res.storyData);

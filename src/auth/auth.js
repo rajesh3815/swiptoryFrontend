@@ -3,7 +3,7 @@ import axios from "axios";
 export const registerUser = async ({ name, userPassword }) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/api/v1/user/register",
+      "https://swiptoryserver-erk2.onrender.com/api/v1/user/register",
       {
         name,
         password: userPassword,
@@ -19,7 +19,7 @@ export const registerUser = async ({ name, userPassword }) => {
 export const loginUser = async ({ name, userPassword }) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/api/v1/user/login",
+      "https://swiptoryserver-erk2.onrender.com/api/v1/user/login",
       {
         name,
         password: userPassword,
