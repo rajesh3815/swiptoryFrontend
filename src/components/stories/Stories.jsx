@@ -6,10 +6,11 @@ import { myContext } from "../../Context";
 import { FaRegEdit } from "react-icons/fa";
 import Carousel from "../carousel/Carousel";
 const Stories = ({ filterArray }) => {
-  const [ids] = useState(localStorage.getItem("userId"));
+  const [ids, setIds] = useState(localStorage.getItem("userId"));
   const [stories, setStories] = useState({}); //all storys save here
   const [opencarousel, setOpencarousel] = useState(false);
   const [storysId, setStorysid] = useState(); //for seeting the story id and send to casouel
+  const [myStorylength, setMyStorylength] = useState(4);
   //setup total length of the each story
   const [storyLen, setStoryLen] = useState({});
   const [lengths, setLengths] = useState({
@@ -18,12 +19,15 @@ const Stories = ({ filterArray }) => {
     fashion: 2,
     World: 2,
     medical: 2,
-  });
-  let { editData, setEditData, setIsEdit, isEdit, setStoryid } =
+  }); //initial lengths
+  let { editData, setEditData, setIsEdit, isEdit, setStoryid, loginStatus } =
     useContext(myContext);
   useEffect(() => {
     storyFetch();
-  }, [isEdit, setIsEdit]);
+    console.log(stories);
+    console.log(loginStatus);
+    setIds(localStorage.getItem("userId"));
+  }, [isEdit, setIsEdit, loginStatus, ids]);
   const storyFetch = async () => {
     const res = await getAllstory([], "all", 1);
     setStories(res.storyData);
@@ -43,7 +47,7 @@ const Stories = ({ filterArray }) => {
 
     window.scrollTo({
       top: 0,
-      behavior: "smooth", // Optional: smooth scrolling animation
+      behavior: "smooth",
     });
   };
   const shomoreHandeler = async (category) => {
@@ -52,10 +56,61 @@ const Stories = ({ filterArray }) => {
     setLengths((prev) => ({ ...prev, [category]: l + 1 }));
     setStories((prev) => ({ ...prev, [category]: res.storyData }));
   };
+  const myStoryHandeler = () => {
+    if (myStorylength > stories?.["myStory"]?.length){
+      setMyStorylength(4)
+      return;
+    } 
+    setMyStorylength((prev) => prev + 4);
+  };
   return (
     <>
       {filterArray.length === 0 ? (
         <div className={Styles.allStorydiv}>
+          {stories?.["myStory"]?.length !== 0 && (
+            <div className={Styles.conatainer}>
+              <h3>Your Stories</h3>
+              <div className={Styles.myStory}>
+                {stories?.["myStory"]
+                  ?.slice(0, myStorylength)
+                  ?.map((item, index) => {
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => storyCarousel(item._id)}
+                        className={Styles.storyCard}
+                      >
+                        <img src={item.slides[0].imageUrl} alt="" />
+                        <div className={Styles.cardFooter}>
+                          <h2>{item.slides[0].heading}</h2>
+                          <p>{item.slides[0].description}</p>
+                        </div>
+                        {item.userId === ids ? (
+                          <button
+                            onClick={(e) =>
+                              clickHandeler(item.slides, item._id, e)
+                            }
+                          >
+                            <span>
+                              <FaRegEdit style={{ fontSize: "1.7rem" }} /> Edit
+                            </span>
+                          </button>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    );
+                  })}
+              </div>
+              {myStorylength < stories?.["myStory"]?.length ? (
+                <button onClick={myStoryHandeler} className={Styles.showbtn}>
+                  Shomore
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
+          )}
           {categories.map((category, index) => {
             return (
               <div key={index} className={Styles.conatainer}>

@@ -8,7 +8,7 @@ import Storyform from "../story/Storyform";
 import { myContext } from "../../Context";
 import Bookmark from "../bookmark/Bookmark";
 const Navbar = () => {
-  let { isEdit } = useContext(myContext);
+  let { isEdit, loginStatus, setLoginstatus } = useContext(myContext);
   const [loginPopup, setLoginPopup] = useState(false);
   const [registerPopup, setRegisterPopup] = useState(false);
   const [logoutModal, setLogoutModal] = useState();
@@ -30,7 +30,7 @@ const Navbar = () => {
     if (registerPopup) {
       setRegisterPopup(false);
     }
-
+    
     setLoginPopup(true);
   };
   //handdel when user click logout btn
@@ -38,6 +38,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     setisLoggedin(localStorage.getItem("token"));
+    setLoginstatus(false)
     setLogoutModal(!logoutModal);
     setMediaModal(false);
   };

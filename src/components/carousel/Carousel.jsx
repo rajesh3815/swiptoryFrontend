@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Style from "./Carousel.module.css";
 import { IoMdHeart } from "react-icons/io";
-import { FaBookmark } from "react-icons/fa";
+import { FaBookmark, FaShareSquare } from "react-icons/fa";
 import { MdOutlineArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import { bookmarkStory, getStoryById, likedStory } from "../../api/story";
 import { useContext } from "react";
@@ -19,6 +19,35 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
   const [isBookmark, setIsBookmark] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [likesCount, setLikesCount] = useState(0);
+  //code for tuoch funcionality
+  const [startPosition, setStartPosition] = useState(null);
+
+  const handleTouchStart = (e) => {
+    setStartPosition(e.touches[0].clientX);
+  };
+  const handleTouchMove = (e) => {
+    if (startPosition === null) return;
+
+    const currentPosition = e.touches[0].clientX;
+    const diff = currentPosition - startPosition;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swipe right call prev
+        prev();
+      } else {
+        // Swipe left call next
+        next();
+      }
+      setStartPosition(null);
+    }
+  };
+  const handleTouchEnd = () => {
+    setStartPosition(null);
+  };
+
+  //end==========----------------===========///////////
+
   useEffect(() => {
     if (opencarousel) {
       const intervals = setInterval(next, 3500);
@@ -117,6 +146,9 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
           {carouseData.story?.slides?.map((slide, index) => {
             return (
               <div
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
                 key={index}
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
                 className={Style.carousel}
@@ -129,6 +161,13 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
               </div>
             );
           })}
+          <div className={Style.shareLink}>
+            <FaShareSquare
+              color="white"
+              size="1.8rem"
+              style={{ cursor: "pointer" }}
+            />
+          </div>
           <div className={Style.statusContainer}>
             {carouseData.story?.slides?.map((_, index) => (
               <div

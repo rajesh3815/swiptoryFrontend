@@ -82,6 +82,8 @@ export const getbookmarks = async () => {
 
 export const getAllstory = async (filterArray, cat, page) => {
   try {
+    const token = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = token;
     let response = "";
     if (filterArray.length === 0) {
       response = await axios.get(

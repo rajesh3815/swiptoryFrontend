@@ -7,8 +7,17 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
+}
+
+.myStory {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
 }
 
 .conatainer h3 {
@@ -39,7 +48,7 @@
     justify-content: center;
     width: -webkit-fill-available;
     gap: 4rem;
-    padding: 1rem 1rem 2rem 1rem ;
+    padding: 1rem 1rem 2rem 1rem;
     flex-wrap: wrap;
 }
 
@@ -85,24 +94,27 @@
     justify-content: center;
     gap: 5px;
 }
-.cardFooter{
+
+.cardFooter {
     z-index: 100;
     position: absolute;
     bottom: 2rem;
     width: -webkit-fill-available;
     height: max-content;
-    padding:0 0.8rem ;
+    padding: 0 0.8rem;
     /* background-color: rgb(27, 27, 27); */
     border-radius: 14px;
     color: white;
     word-wrap: break-word;
     font-weight: 600;
 }
-.cardFooter h2{
+
+.cardFooter h2 {
     font-size: 1.4rem;
     margin-bottom: 5px;
 }
-.showbtn{
+
+.showbtn {
     border: none;
     outline: none;
     padding: .5rem;
@@ -112,16 +124,20 @@
     border-radius: 20px;
     background-color: #FF7373;
 }
-@media only screen and (max-width: 767px){
 
-    .conatainer h3{
+@media only screen and (max-width: 767px) {
+
+    .conatainer h3 {
         font-size: 1.3rem;
     }
-    .storySections{
+
+    .storySections {
         gap: 2rem;
         padding-bottom: 1rem;
     }
-    .storyCard{
-        height: 26rem;
+
+    .storyCard {
+        height: 28rem;
+        width: 100vw;
     }
 }

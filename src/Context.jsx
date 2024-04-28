@@ -11,9 +11,9 @@ export const ContexProvider = ({ children }) => {
   //setting up the bookmarks data
 
   let [bookmarkData, setBookmarkData] = useState([]);
-
+  let [loginStatus, setLoginstatus] = useState(false);
   const setupBookmark = async () => {
-    if(!localStorage.getItem('token')) return
+    if (!localStorage.getItem("token")) return;
     const res = await getbookmarks();
     setBookmarkData(res);
   };
@@ -30,6 +30,8 @@ export const ContexProvider = ({ children }) => {
           setStoryid,
           bookmarkData,
           setupBookmark,
+          loginStatus,
+          setLoginstatus,
         }}
       >
         {children}

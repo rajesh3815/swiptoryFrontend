@@ -1,11 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useContext } from "react";
 import Styles from "./Popup.module.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { loginUser, registerUser } from "../../auth/auth";
 import { ToastContainer, toast, Slide } from "react-toastify";
+import { myContext } from "../../Context";
 import "react-toastify/dist/ReactToastify.css";
 const Popup = ({ name, onclose, setisLoggedin, setUserName }) => {
   const popref = useRef();
+  let {  setLoginstatus } = useContext(myContext);
   const [showpassword, setShowpassword] = useState(false);
   const [err, setErr] = useState("");
   const [formData, setFormdata] = useState({
@@ -46,7 +48,7 @@ const Popup = ({ name, onclose, setisLoggedin, setUserName }) => {
     }
     if (name === "Register") {
       let res = await registerUser(formData);
-      if(res!==1) return
+      if (res !== 1) return;
       toast.success("Registered Successfully!", {
         position: "top-right",
         autoClose: 5000,
@@ -70,6 +72,7 @@ const Popup = ({ name, onclose, setisLoggedin, setUserName }) => {
         //for togle login logout functionalities
         setUserName(res);
         setisLoggedin(localStorage.getItem("token"));
+        setLoginstatus(true);
         toast.success("Logedin Successfully!", {
           position: "top-right",
           autoClose: 5000,
@@ -102,7 +105,9 @@ const Popup = ({ name, onclose, setisLoggedin, setUserName }) => {
               onChange={formHandeler}
             />
           </label>
-          <p className={Styles.errs} style={{ color: "red" }}>{errordata.name}</p>
+          <p className={Styles.errs} style={{ color: "red" }}>
+            {errordata.name}
+          </p>
           <br />
           <label htmlFor="password" style={{ position: "relative" }}>
             password{" "}
@@ -121,11 +126,15 @@ const Popup = ({ name, onclose, setisLoggedin, setUserName }) => {
               )}
             </span>
           </label>
-          <p className={Styles.errs} style={{ color: "red" }}>{errordata.userPassword}</p>
+          <p className={Styles.errs} style={{ color: "red" }}>
+            {errordata.userPassword}
+          </p>
           <button className={Styles.btn}>{name}</button>
         </form>
 
-        <p style={{color:"red"}} className={Styles.errsData}>{err}</p>
+        <p style={{ color: "red" }} className={Styles.errsData}>
+          {err}
+        </p>
       </div>
       <ToastContainer />
     </div>
