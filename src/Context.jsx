@@ -7,6 +7,7 @@ export const ContexProvider = ({ children }) => {
   let [editData, setEditData] = useState([]);
   let [isEdit, setIsEdit] = useState(false);
   let [storyid, setStoryid] = useState();
+  let [storyCreated, setStoryCreated] = useState();
 
   //setting up the bookmarks data
 
@@ -32,6 +33,8 @@ export const ContexProvider = ({ children }) => {
           setupBookmark,
           loginStatus,
           setLoginstatus,
+          storyCreated,
+          setStoryCreated,
         }}
       >
         {children}

@@ -13,11 +13,13 @@
 
 .myStory {
     display: flex;
+    /* border: 1px solid black; */
     align-items: center;
+    justify-content: center;
+    width: -webkit-fill-available;
     gap: 4rem;
-    justify-content: flex-start;
+    padding: 1rem 1rem 2rem 1rem;
     flex-wrap: wrap;
-    margin-bottom: 1rem;
 }
 
 .conatainer h3 {

@@ -4,9 +4,11 @@ import Style from "./Storyform.module.css";
 import { categories } from "../../util/constant";
 import { createStory, updateStory } from "../../api/story";
 import { myContext } from "../../Context";
+import { ToastContainer, toast, Bounce,Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Storyform = ({ onclose }) => {
-  let { editData, setEditData, setIsEdit, isEdit, storyid, setStoryid } =
+  let { editData, setEditData, setIsEdit, isEdit, storyid, setStoryid ,storyCreated, setStoryCreated} =
     useContext(myContext);
   const storyref = useRef();
   const [constCategory, setConstcategory] = useState(categories);
@@ -89,11 +91,31 @@ const Storyform = ({ onclose }) => {
       updateStory(storyid, slides);
       setEditData([]);
       setStoryid("");
+      toast.success("Edited successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     } else {
-      console.log("====================================");
-      console.log("dfvmdf");
-      console.log("====================================");
       createStory(slides);
+      toast.success("Created successfully!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Slide,
+      });
+      setStoryCreated(!storyCreated)
     }
   };
   const closeModal = () => {
@@ -150,9 +172,7 @@ const Storyform = ({ onclose }) => {
           </React.Fragment>
         ))}
         {/* error message */}
-        <p className={Style.errMessage} >
-          {errors}
-        </p>
+        <p className={Style.errMessage}>{errors}</p>
         <div className={Style.btns}>
           <div>
             <button
@@ -175,6 +195,7 @@ const Storyform = ({ onclose }) => {
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

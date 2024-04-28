@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
   //calling bookmark data for checking if user has already bookmarked th data or not
-  let { bookmarkData, setupBookmark } = useContext(myContext);
+  let { bookmarkData, setupBookmark, loginStatus } = useContext(myContext);
   /////---------------..
   const [ids] = useState(localStorage.getItem("userId"));
   const [carouseData, setCarouselData] = useState({});
@@ -67,17 +67,22 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
 
   useEffect(() => {
     setupBookmark();
-  }, [isBookmark, carouseData]);
+  }, [isBookmark, carouseData, loginStatus]);
   //check story is bookmarked or not
   useEffect(() => {
     checkBookmark();
-  }, [carouseData]);
+  }, [carouseData, isBookmark, ids, loginStatus]);
 
   const checkBookmark = () => {
     for (let i = 0; i < bookmarkData?.length; i++) {
-      if (bookmarkData[i]?._id === carouseData?.story?._id) {
-        // console.log(bookmarkData[i]._id,);
-        setIsBookmark(true);
+      if (loginStatus) {
+        if (bookmarkData[i]?._id === carouseData?.story?._id) {
+          // console.log(bookmarkData[i]._id,);
+          setIsBookmark(true);
+          return;
+        }
+      } else {
+        setIsBookmark(false);
       }
     }
   };
@@ -133,10 +138,11 @@ const Carousel = ({ setOpencarousel, opencarousel, storyIds }) => {
         theme: "colored",
         transition: Slide,
       });
+      setIsBookmark(false);
       return;
     }
     await bookmarkStory(story);
-    setIsBookmark(!isBookmark);
+    setIsBookmark(true);
   };
 
   return (
