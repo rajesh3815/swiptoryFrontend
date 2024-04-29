@@ -5,12 +5,14 @@ import { categories } from "../../util/constant";
 import { myContext } from "../../Context";
 import { FaRegEdit } from "react-icons/fa";
 import Carousel from "../carousel/Carousel";
+import Loader from "../loader/Loader";
 const Stories = ({ filterArray }) => {
   const [ids, setIds] = useState(localStorage.getItem("userId"));
   const [stories, setStories] = useState({}); //all storys save here
   const [opencarousel, setOpencarousel] = useState(false);
   const [storysId, setStorysid] = useState(); //for seeting the story id and send to casouel
   const [myStorylength, setMyStorylength] = useState(4);
+  const [loading, setLoading] = useState(true);
   //setup total length of the each story
   const [storyLen, setStoryLen] = useState({});
 
@@ -22,7 +24,6 @@ const Stories = ({ filterArray }) => {
     medical: 2,
   }); //initial lengths
   useEffect(() => {
-    console.log("ff");
     setLengths({ Food: 2, fitness: 2, fashion: 2, World: 2, medical: 2 });
   }, [filterArray]);
   let {
@@ -37,13 +38,13 @@ const Stories = ({ filterArray }) => {
   useEffect(() => {
     storyFetch();
     console.log(stories);
-    console.log(loginStatus);
     setIds(localStorage.getItem("userId"));
   }, [isEdit, setIsEdit, loginStatus, ids, storyCreated, filterArray]);
   const storyFetch = async () => {
     const res = await getAllstory([], "all", 1);
     setStories(res.storyData);
     setStoryLen(res.storyLength);
+    setLoading(false)
   };
 
   const clickHandeler = (datas, ids, e) => {
@@ -77,6 +78,7 @@ const Stories = ({ filterArray }) => {
   };
   return (
     <>
+      {" "}
       {filterArray.length === 0 ? (
         <div className={Styles.allStorydiv}>
           {stories?.["myStory"]?.length !== 0 && (
@@ -245,6 +247,7 @@ const Stories = ({ filterArray }) => {
           storyIds={storysId}
         />
       )}
+      {loading && <Loader />}
     </>
   );
 };
